@@ -8,19 +8,27 @@ using UnityEngine.UI;
 //[ExecuteInEditMode]
 public class AppInfo : MonoBehaviour {
 
-    public string name;
+    public string appName;
     public string version;
     public string type;
 
+    private ConnController conn = new ConnController();
+
     void Start()
     {
-        //buildTagBat();
+        Application.runInBackground = true;
+        conn.init(this);
+    }
+
+    void OnDestroy()
+    {
+        conn.close();
     }
 
 	public void buildTagBat () {
         string filePath = Path.Combine(Application.streamingAssetsPath, "tag.bat");
         StringBuilder stringBuilder = new StringBuilder("@echo off");
-        stringBuilder.Append("\necho name:" + name);
+        stringBuilder.Append("\necho name:" + appName);
         stringBuilder.Append("\necho version:" + version);
         stringBuilder.Append("\necho type:" + type);
         stringBuilder.Append("\necho.");
