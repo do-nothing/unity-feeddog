@@ -42,6 +42,7 @@ public class AppInfo : MonoBehaviour {
         stringBuilder.Append("\ngit tag " + version);
         stringBuilder.Append("\ngit push origin " + version);
         stringBuilder.Append("\necho. \n\ngit log --decorate -3");
+        stringBuilder.Append("\npause");
 
         saveFile(filePath, stringBuilder.ToString());
 	}
