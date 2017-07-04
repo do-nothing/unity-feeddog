@@ -5,14 +5,20 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-//[ExecuteInEditMode]
 public class AppInfo : MonoBehaviour {
 
     public string appName;
     public string version;
     public string type;
+    public int isBusy = 0;
 
-    private ConnController conn = new ConnController();
+    public ConnController conn = new ConnController();
+    public static AppInfo instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -53,5 +59,10 @@ public class AppInfo : MonoBehaviour {
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(content);
         fs.Write(bytes, 0, bytes.Length);
         fs.Close();
+    }
+
+    public override string ToString()
+    {
+        return "[\"" + appName + "\",\"" + version + "\",\"" + type + "\"," + isBusy + "]";
     }
 }

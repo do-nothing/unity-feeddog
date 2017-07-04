@@ -81,11 +81,12 @@ namespace Microwise.Guide.NetConn
         private void heartbeat()
         {
             string str = "{\"id\":\"appSelf\",\"target\":\"exmanager\",\"logType\":\"nolog\",\"strategy\":\"heartbeat\",\"quality\":0,\"timestamp\":1494825498577," +
-                "\"contentBean\":{\"command\":\"setAppInfo\",\"args\":[\"" + appInfo.appName + "\",\"" + appInfo.version + "\",\"" + appInfo.type + "\"]}}";
+                "\"contentBean\":{\"command\":\"setAppInfo\",\"args\":" + appInfo + "}}";
             JsonData json = JsonMapper.ToObject(str);
 
             while (instance != null)
             {
+                json["contentBean"]["args"][3] = appInfo.isBusy;
                 sendMessage(json);
                 Thread.Sleep(5000);
             }
