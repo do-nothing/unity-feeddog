@@ -59,7 +59,7 @@ namespace Microwise.Guide.NetConn
             if (json["strategy"].ToString() != "heatbeat")
             {
             }
-            Debug.Log(str);
+            //Debug.Log(str);
         }
 
         public void addMessageListener(ProcessMessage processMessage)
