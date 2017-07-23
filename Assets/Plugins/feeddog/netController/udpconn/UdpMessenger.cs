@@ -53,13 +53,13 @@ namespace Microwise.Guide.NetConn
         {
             json["timestamp"] = GetTimeStamp();
             string str = json.ToJson();
-            byte[] data = Encoding.ASCII.GetBytes(str);
+            byte[] data = Encoding.UTF8.GetBytes(str);
             server.SendTo(data, data.Length, SocketFlags.None, ipEndPoint);
 
-            if (json["strategy"].ToString() != "heatbeat")
+            if (json["strategy"].ToString() != "heartbeat")
             {
+                Debug.Log(str);
             }
-            //Debug.Log(str);
         }
 
         public void addMessageListener(ProcessMessage processMessage)
@@ -100,7 +100,7 @@ namespace Microwise.Guide.NetConn
                 EndPoint ep = new IPEndPoint(IPAddress.Any, 0); ;
 
                 int intReceiveLength = server.ReceiveFrom(data, ref ep);
-                string strReceiveStr = Encoding.Default.GetString(data, 0, intReceiveLength);
+                string strReceiveStr = Encoding.UTF8.GetString(data, 0, intReceiveLength);
                 //Debug.Log(strReceiveStr);
                 JsonData json = JsonMapper.ToObject(strReceiveStr);
                 processMessage(json);
